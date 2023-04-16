@@ -7,12 +7,13 @@ using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
+    public EnemyController _enemyController;
     [SerializeField] Rigidbody2D rb;
     [SerializeField] float speed = 7.5f;
     [SerializeField] private Animator anim;
     [SerializeField] Text scoreText,lastScoreText;
     [SerializeField]  GameObject restartPanel, startPanel;
-    [SerializeField]  AudioSource applecrunchsound, applecrunchextrasound, playerdeathsound, enemydeathsound;
+    [SerializeField]  AudioSource applecrunchsound, applecrunchextrasound, playerdeathsound;
     public static bool isStart = false;
     private int score = 0;
     
@@ -60,30 +61,26 @@ public class Player : MonoBehaviour
         }
         else if (col.tag=="Enemy")
         {
-            killenemy(col); 
+            _enemyController = col.GetComponentInParent<EnemyController>();
+            _enemyController.killenemy();
+            
+           score +=20;
+           scoreText.text = score.ToString();
+           Debug.Log("player col.tag==Enemyden geliyorum.");
         }
     }
 
 
-    private void OnCollisionEnter2D(Collision2D collision)
+     public void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.tag=="Death")
         {
             death(collision.gameObject);
+            Debug.Log("lan nerden geliyorum dur bakiyim player oncollisionEnter2d");
         }
-    }
+    }   
     
-
-    void killenemy(Collider2D c)
-    {
-        Debug.Log("collider name "+c.gameObject.name);
-        enemydeathsound.Play();
-        Destroy(c.transform.parent.gameObject);
-        score +=20;
-        scoreText.text = score.ToString();
-        Debug.Log("oldum bennn");
- 
-    }
+     
 
     #region hareket islemleri
     void Move(float h)
@@ -125,12 +122,12 @@ public class Player : MonoBehaviour
 
     public void death(GameObject p)
     {
-        playerdeathsound.Play();
+            playerdeathsound.Play();
             Destroy(gameObject,0.5f);
             anim.SetTrigger("Death");
             restartPanel.SetActive(true);
             lastScoreText.text = "Last Score: " + score.ToString();
-            Debug.Log("oldum");
+            
  
     }
 

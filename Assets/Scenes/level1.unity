@@ -264,7 +264,7 @@ AudioSource:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 253198316}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: d727baea792524417816bdf27286b8d2, type: 3}
@@ -3328,6 +3328,17 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 770b83a7ff15a47de96f87b7e1b41371, type: 3}
+--- !u!114 &2257638566711743039 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8243983421959438911, guid: 0a920c76b68aa41d0a3447d48e24ba74, type: 3}
+  m_PrefabInstance: {fileID: 5106589446379174950}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d8ae6e30394914646b14f184ee2e72ab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &2257638568004046316 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6452249084033642954, guid: 0a920c76b68aa41d0a3447d48e24ba74, type: 3}
@@ -3408,7 +3419,12 @@ PrefabInstance:
       propertyPath: lastScoreText
       value: 
       objectReference: {fileID: 1099241009}
-    m_RemovedComponents: []
+    - target: {fileID: 3487967670908212815, guid: ff56440a31117486ab6d8702a3e2fcc2, type: 3}
+      propertyPath: _enemyController
+      value: 
+      objectReference: {fileID: 2257638566711743039}
+    m_RemovedComponents:
+    - {fileID: 2015329632281717416, guid: ff56440a31117486ab6d8702a3e2fcc2, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: ff56440a31117486ab6d8702a3e2fcc2, type: 3}
 --- !u!1001 &3531469183457849232
 PrefabInstance:
