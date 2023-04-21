@@ -1,9 +1,11 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Mathematics;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
+
 
 public class Player : MonoBehaviour
 {
@@ -11,15 +13,16 @@ public class Player : MonoBehaviour
     [SerializeField] Rigidbody2D rb;
     [SerializeField] float speed = 7.5f;
     [SerializeField] private Animator anim;
-    [SerializeField] Text scoreText,lastScoreText;
+    [SerializeField] public Text scoreText,lastScoreText;
     [SerializeField]  GameObject restartPanel, startPanel;
-    [SerializeField]  AudioSource applecrunchsound, applecrunchextrasound, playerdeathsound;
+    [SerializeField]  AudioSource applecrunchsound, applecrunchextrasound, playerdeathsound,enemydeathsound;
     public static bool isStart = false;
-    private int score = 0;
+    public  int score = 0;
+    [SerializeField]  GameObject End;
+    [SerializeField]  GameObject BulletPrefab;
+    [SerializeField]  Transform BulletSpawn;
+    [SerializeField]  Transform BulletTile;
     
-    
-    
-
     private enum MovementState {idle, run,jump,fall}
 // Start is called before the first frame update
     void Start()
@@ -29,22 +32,28 @@ public class Player : MonoBehaviour
         {
             startPanel.SetActive(false);
         }
-    } 
+    }
+
+    private void Update()
+    {
+        if (!isStart)
+            return;
+        PlayerShoot();
+    }
+
     private void FixedUpdate()
     {
         if (!isStart)
-        {
             return;
-        }
         float h = Input.GetAxis("Horizontal");
         Move(h);
         PlayerTurn(h);
         PlayerAnim(h);
-       
     }
 
     private void OnTriggerEnter2D(Collider2D col)
     {
+        
         if (col.tag == "Apple")
         {
             applecrunchsound.Play();
@@ -61,21 +70,24 @@ public class Player : MonoBehaviour
         }
         else if (col.tag=="Enemy")
         {
+            enemydeathsound.Play();
             _enemyController = col.GetComponentInParent<EnemyController>();
             _enemyController.killenemy();
-            
-           score +=20;
+            score +=20;
            scoreText.text = score.ToString();
            Debug.Log("player col.tag==Enemyden geliyorum.");
         }
+        else if (col.CompareTag("End"))
+        {
+            GameManager.skipLevel();
+        }
     }
-
-
-     public void OnCollisionEnter2D(Collision2D collision)
+    public void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.tag=="Death")
         {
             death(collision.gameObject);
+            
             Debug.Log("lan nerden geliyorum dur bakiyim player oncollisionEnter2d");
         }
     }   
@@ -116,8 +128,27 @@ public class Player : MonoBehaviour
         anim.SetInteger("state",(int)state);
     }
     #endregion
+
+    #region PlayerShoot
+    void PlayerShoot()
+    {
+        if (Input.GetKeyDown(KeyCode.P))
+        { 
+            Instantiate(BulletPrefab, BulletSpawn.position, Quaternion.identity, BulletTile);
+            
+        }
+    }
     
-    
+
+    #endregion
+
+    public void bulletkillscore()
+    {
+        score += 8;
+        scoreText.text = score.ToString();
+    }
+
+
     #region olme işlemi
 
     public void death(GameObject p)
@@ -142,5 +173,7 @@ public class Player : MonoBehaviour
     }
 
     #endregion
+    
+    
     
 }//class

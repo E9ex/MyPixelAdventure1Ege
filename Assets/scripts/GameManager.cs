@@ -8,8 +8,12 @@ public class GameManager : MonoBehaviour
 {
     [SerializeField] GameObject Mute, unmute;
     [SerializeField] AudioSource backgroundsound;
-    public static bool isRestart = false;
+   
+   
     
+    public static bool isRestart = false;
+
+  
 
     #region yeniden oyna
 
@@ -27,6 +31,17 @@ public class GameManager : MonoBehaviour
         Debug.Log("çıktım bb");
     }
     #endregion
+
+
+    #region levelgecme
+
+    public  static void skipLevel()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+    }
+
+    #endregion
+  
 
     #region  mute işlemleri
 

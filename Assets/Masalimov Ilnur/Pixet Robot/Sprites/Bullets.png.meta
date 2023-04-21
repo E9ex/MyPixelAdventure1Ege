@@ -1,31 +1,19 @@
 fileFormatVersion: 2
-guid: e2b42ecdf887de146ada435603f4c95b
+guid: 5fd4897bad99ede4bb6c2e5c318d07e6
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -6413723104087012207
-    second: End (Pressed) (64x64)_0
+      213: 874343242196921964
+    second: Bullets_0
   - first:
-      213: 3929474280128384605
-    second: End (Pressed) (64x64)_1
+      213: -7976837497307082302
+    second: Bullets_1
   - first:
-      213: 1587867963335433236
-    second: End (Pressed) (64x64)_2
+      213: -7803065417098437583
+    second: Bullets_2
   - first:
-      213: -5485141715290898936
-    second: End (Pressed) (64x64)_3
-  - first:
-      213: -2126709872511700890
-    second: End (Pressed) (64x64)_4
-  - first:
-      213: -909184209231543298
-    second: End (Pressed) (64x64)_5
-  - first:
-      213: 1599969876799240324
-    second: End (Pressed) (64x64)_6
-  - first:
-      213: 1190070087064070019
-    second: End (Pressed) (64x64)_7
+      213: 7431529995326980795
+    second: Bullets_3
   externalObjects: {}
   serializedVersion: 12
   mipmaps:
@@ -71,7 +59,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 45
+  spritePixelsToUnits: 28
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -86,7 +74,7 @@ TextureImporter:
   compressionQualitySet: 0
   textureFormatSet: 0
   ignorePngGamma: 0
-  applyGammaDecoding: 1
+  applyGammaDecoding: 0
   cookieLightType: 1
   platformSettings:
   - serializedVersion: 3
@@ -153,7 +141,70 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: End (Pressed) (64x64)_0
+      name: Bullets_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 192
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c6e29eadb8a422c00800000000000000
+      internalID: 874343242196921964
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bullets_1
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 128
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2c1defd2f849c4190800000000000000
+      internalID: -7976837497307082302
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bullets_2
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 64
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 13c56b67851f5b390800000000000000
+      internalID: -7803065417098437583
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Bullets_3
       rect:
         serializedVersion: 2
         x: 0
@@ -167,155 +218,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 0e48d0072ac1f8748900768ecf0f9324
-      internalID: -6413723104087012207
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: End (Pressed) (64x64)_1
-      rect:
-        serializedVersion: 2
-        x: 64
-        y: 0
-        width: 64
-        height: 64
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: a85effa9d75ee3548a2fbdf419896401
-      internalID: 3929474280128384605
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: End (Pressed) (64x64)_2
-      rect:
-        serializedVersion: 2
-        x: 128
-        y: 0
-        width: 64
-        height: 64
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 9cb7bbac8b66afe41ba9b37fed44232e
-      internalID: 1587867963335433236
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: End (Pressed) (64x64)_3
-      rect:
-        serializedVersion: 2
-        x: 192
-        y: 0
-        width: 64
-        height: 64
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 6c465a8ab89883e4bbaeed8bc4bd75fe
-      internalID: -5485141715290898936
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: End (Pressed) (64x64)_4
-      rect:
-        serializedVersion: 2
-        x: 256
-        y: 0
-        width: 64
-        height: 64
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: e817bc815e7eb6d4e8012a016e95ad10
-      internalID: -2126709872511700890
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: End (Pressed) (64x64)_5
-      rect:
-        serializedVersion: 2
-        x: 320
-        y: 0
-        width: 64
-        height: 64
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: c4c535d434306704e9d6dcb5d64b4637
-      internalID: -909184209231543298
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: End (Pressed) (64x64)_6
-      rect:
-        serializedVersion: 2
-        x: 384
-        y: 0
-        width: 64
-        height: 64
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 780eaf96ab5355d4c8ddb8baaab097a5
-      internalID: 1599969876799240324
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: End (Pressed) (64x64)_7
-      rect:
-        serializedVersion: 2
-        x: 448
-        y: 0
-        width: 64
-        height: 64
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: f2ad32e941b6ca54b8b380565e48c484
-      internalID: 1190070087064070019
+      spriteID: bb200252829122760800000000000000
+      internalID: 7431529995326980795
       vertices: []
       indices: 
       edges: []
@@ -331,14 +235,10 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      End (Pressed) (64x64)_2: 1587867963335433236
-      End (Pressed) (64x64)_5: -909184209231543298
-      End (Pressed) (64x64)_1: 3929474280128384605
-      End (Pressed) (64x64)_3: -5485141715290898936
-      End (Pressed) (64x64)_6: 1599969876799240324
-      End (Pressed) (64x64)_4: -2126709872511700890
-      End (Pressed) (64x64)_7: 1190070087064070019
-      End (Pressed) (64x64)_0: -6413723104087012207
+      Bullets_0: 874343242196921964
+      Bullets_2: -7803065417098437583
+      Bullets_1: -7976837497307082302
+      Bullets_3: 7431529995326980795
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

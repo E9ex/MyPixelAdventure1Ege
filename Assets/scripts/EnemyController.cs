@@ -5,12 +5,9 @@ using UnityEngine;
 
 public class EnemyController : MonoBehaviour
 {
-    [SerializeField] private AudioSource enemydeathsound;
-    public void killenemy()
+    
+    public  void killenemy()
     {
         Destroy(transform.parent.gameObject);
-        enemydeathsound.Play();
-
-        
     }
 }

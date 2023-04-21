@@ -8,6 +8,8 @@ TagManager:
   - Apple
   - Enemy
   - AppleExtra
+  - End
+  - Bulletdest
   layers:
   - Default
   - TransparentFX
@@ -50,6 +52,9 @@ TagManager:
     locked: 0
   - name: apple
     uniqueID: 823402993
+    locked: 0
+  - name: Bullet
+    uniqueID: 2982011641
     locked: 0
   - name: Player
     uniqueID: 333848667
