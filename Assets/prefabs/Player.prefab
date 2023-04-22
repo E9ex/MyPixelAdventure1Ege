@@ -256,17 +256,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _enemyController: {fileID: 0}
+  playerLives:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  playerLife: 3
   rb: {fileID: 3487967670908212812}
   speed: 7.5
   anim: {fileID: 3487967670908212808}
   scoreText: {fileID: 0}
   lastScoreText: {fileID: 0}
+  bestScoreText: {fileID: 0}
   restartPanel: {fileID: 0}
   startPanel: {fileID: 0}
   applecrunchsound: {fileID: -6422083669389182560}
   applecrunchextrasound: {fileID: 7694696426282458548}
   playerdeathsound: {fileID: -5544462049704908357}
   enemydeathsound: {fileID: 2015329632281717416}
+  score: 0
   End: {fileID: 0}
   BulletPrefab: {fileID: 4374062610218548581, guid: 8868c058b6d1449d79e758980e2d4d87, type: 3}
   BulletSpawn: {fileID: 1950130971492760262}

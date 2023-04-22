@@ -1,6 +1,5 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
+using Microsoft.Unity.VisualStudio.Editor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -10,19 +9,23 @@ public class GameManager : MonoBehaviour
     [SerializeField] AudioSource backgroundsound;
    
    
+
+
     
     public static bool isRestart = false;
 
-  
+    
 
     #region yeniden oyna
 
    public void restartGame()
     {
         isRestart = true;
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name); 
+        
     }
     #endregion
+
 
     #region cikis islemi
     public void quitGame()
@@ -38,6 +41,7 @@ public class GameManager : MonoBehaviour
     public  static void skipLevel()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        
     }
 
     #endregion
@@ -59,4 +63,7 @@ public class GameManager : MonoBehaviour
     
 
     #endregion
+    
+    
+    
 }

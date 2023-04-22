@@ -24,7 +24,7 @@ public class Bullet : MonoBehaviour
        {
            Destroy(gameObject);//bullet destroy.
            enemyBody.Takedamage(damage);
-          //dur lan 
+          
        }
        else if (col.CompareTag("Bulletdest"))
        {
