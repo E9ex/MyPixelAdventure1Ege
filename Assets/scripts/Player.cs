@@ -9,50 +9,48 @@ using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
- 
-    public EnemyController _enemyController;
-    [SerializeField] private Image[] playerLives;
-    [SerializeField] private int playerLife = 3;
+    private GameManager _gameManager;
+    
+    private EnemyController _enemyController;
     [SerializeField] Rigidbody2D rb;
     [SerializeField] float speed = 7.5f;
     [SerializeField] private Animator anim;
-    [SerializeField] public Text scoreText,lastScoreText,bestScoreText;
-    [SerializeField]  GameObject restartPanel, startPanel;
+ 
     [SerializeField]  AudioSource applecrunchsound, applecrunchextrasound, playerdeathsound,enemydeathsound;
-    public static bool isStart = false;
-    public  int score = 0;
-   
-    [SerializeField]  GameObject End;
+  
     [SerializeField]  GameObject BulletPrefab;
     [SerializeField]  Transform BulletSpawn;
     [SerializeField]  Transform BulletTile;
-    
+
     
     
     private enum MovementState {idle, run,jump,fall}
 // Start is called before the first frame update
+
+
     void Start()
-    {
-        
-        scoreText.text = score.ToString();
-        if (GameManager.isRestart)
-        {
-            startPanel.SetActive(false);
-        }
+    { 
+        _gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+
+        _gameManager.scoreText.text = _gameManager.score.ToString();
+          if (GameManager.isRestart)
+          {
+              _gameManager.startPanel.SetActive(false);
+          }
     }
 
     
     private void Update()
     {
-        if (!isStart)
-            return;
+        if (!GameManager.isStart)
+           return;
         PlayerShoot();
     }
 
     private void FixedUpdate()
     {
-        if (!isStart)
-            return;
+        if (!GameManager.isStart)
+           return;
         float h = Input.GetAxis("Horizontal");
         Move(h);
         PlayerTurn(h);
@@ -66,29 +64,29 @@ public class Player : MonoBehaviour
         {
             applecrunchsound.Play();
             Destroy(col.gameObject,0.2f);
-            score += 5;
-            scoreText.text = score.ToString();
+            _gameManager.score += 5;
+            _gameManager.scoreText.text = _gameManager.score.ToString();
         }
         else if (col.tag == "AppleExtra")
         {
             applecrunchextrasound.Play();
             Destroy(col.gameObject,0.2f);
-            score += 15;
-            scoreText.text = score.ToString();
+            _gameManager.score += 15;
+            _gameManager.scoreText.text = _gameManager.score.ToString();
         }
         else if (col.tag=="Enemy")
         {
             enemydeathsound.Play();
             _enemyController = col.GetComponentInParent<EnemyController>();
             _enemyController.killenemy();
-            score +=20;
-           scoreText.text = score.ToString();
+            _gameManager.score +=20;
+          _gameManager.scoreText.text = _gameManager.score.ToString();
           
         }
         else if (col.CompareTag("End"))
         {
             GameManager.skipLevel();
-            scoreText.text = score.ToString();
+            _gameManager.scoreText.text = _gameManager.score.ToString();
             
         }
     }
@@ -97,24 +95,13 @@ public class Player : MonoBehaviour
         if (collision.gameObject.tag=="Death")
         {
             death(collision.gameObject);
+            _gameManager.ReSpawnPlayer();
+            _gameManager.Lives();
             
-            Debug.Log("lan nerden geliyorum dur bakiyim player oncollisionEnter2d");
         }
     }
 
-    public void Lives()
-    {
-        playerLife--;
-        Destroy(playerLives[playerLife]);
-        if (playerLife<1)
-        {
-            restartPanel.SetActive(true);
-            lastScoreText.text = "Last Score: " + score.ToString();
-        }
-       
-        
-        
-    }
+   
 
 
     #region hareket islemleri
@@ -166,6 +153,8 @@ public class Player : MonoBehaviour
     
 
     #endregion
+    
+    
     #region olme işlemi
 
     public void death(GameObject p)
@@ -173,24 +162,14 @@ public class Player : MonoBehaviour
             playerdeathsound.Play();
             Destroy(gameObject,0.5f);
             anim.SetTrigger("Death");
-            Lives(); 
-         
             
- 
-    }
-
-    #endregion
-
-    #region oyunubaslatma
-
-    public void PlayGame()
-    {
-        isStart = true;
-        startPanel.SetActive(false);
     }
 
     #endregion
     
-    
-    
+
+
+
+
+
 }//class

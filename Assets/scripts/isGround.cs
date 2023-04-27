@@ -14,8 +14,8 @@ public class isGround : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!Player.isStart)
-            return;
+       // if (!Player.isStart)
+          //  return;
         
         RaycastHit2D iscollider=Physics2D.Raycast(transform.position,Vector2.down,0.10f,layer);
         if (iscollider != null)
