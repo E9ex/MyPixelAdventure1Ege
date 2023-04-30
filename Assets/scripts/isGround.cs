@@ -9,29 +9,25 @@ public class isGround : MonoBehaviour
     public  bool IsGround = true;
     [SerializeField] Rigidbody2D rb;
     public float jumpspeed = 10f;
-    
-
-
-   
-    // Update is called once per frame
     void Update()
     {
-        
         if (!GameManager.isStart)
             return;
-        RaycastHit2D iscollider=Physics2D.Raycast(transform.position,Vector2.down,0.10f,layer);
+
+        RaycastHit2D iscollider = Physics2D.Raycast(transform.position, Vector2.down, 0.10f, layer);
+
         if (iscollider != null)
             IsGround = true;
         else 
             IsGround = false;
 
-        if (IsGround == true && Input.GetKeyDown(KeyCode.Space))
+        if (IsGround == true && Input.GetKeyDown(KeyCode.Space) && rb.velocity.y == 0)
             rb.velocity = new Vector2(rb.velocity.x, jumpspeed);
-        
     }
-
-    
-    
-
-
 }
+
+    
+    
+
+
+

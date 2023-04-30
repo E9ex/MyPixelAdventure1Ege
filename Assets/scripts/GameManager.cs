@@ -8,9 +8,8 @@ using Image = UnityEngine.UI.Image;
 
 public class GameManager : MonoBehaviour
 {
+    public static GameManager Manager;
     [SerializeField] GameObject Mute, unmute;
-
-    
     [SerializeField] private Image[] PlayerLives;
     [SerializeField] private int playerLife = 3;
     [SerializeField] public Text scoreText,lastScoreText,bestScoreText;
@@ -27,9 +26,18 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
+        if (Manager == null)
+        {
+            Manager = this;
+        }
         bestscore = PlayerPrefs.GetInt("BestScore"); 
-        score = PlayerPrefs.GetInt("score"); 
+        score = PlayerPrefs.GetInt("score");
         SpawnPlayer();
+        if (!isStart)
+            score = 0;
+        else
+            scoreText.text = score.ToString();
+        
     }
     
     public void addPoints(int point)
@@ -41,7 +49,6 @@ public class GameManager : MonoBehaviour
         {
             PlayerPrefs.SetInt("BestScore",score);
         }
-      
     }
   #region PlayerHealth
     public void Lives()
@@ -54,18 +61,13 @@ public class GameManager : MonoBehaviour
             restartPanel.SetActive(true);
             startPanel.SetActive(false);
             lastScoreText.text = "Last Score: "+score.ToString();
-            bestScoreText.gameObject.SetActive(true);//true
         }
-       
-        
     }
     #endregion
-
-    private void Update()
-    {
-       bestscore = PlayerPrefs.GetInt("BestScore");
-       bestScoreText.text = "Best Score: " + bestscore;
-       scoreText.text = score.ToString();
+    private void FixedUpdate()
+    { 
+       bestScoreText.text = "Best Score: " + bestscore.ToString();
+     
     }
 
     #region yenidenBaslatma
@@ -78,8 +80,7 @@ public class GameManager : MonoBehaviour
         isRestart = true; 
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         score = 0;
-        
-        
+   
     }
     #endregion
 
@@ -109,6 +110,8 @@ public class GameManager : MonoBehaviour
     {
         isStart = true;
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        
+       
     }
 
     #endregion
@@ -139,6 +142,9 @@ public class GameManager : MonoBehaviour
     }
 
     #endregion
+
+   
+   
     
 
 
