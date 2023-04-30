@@ -93,12 +93,14 @@ public class Player : MonoBehaviour
         if (collision.gameObject.tag=="Death")
         {
             death(collision.gameObject);
-            _gameManager.ReSpawnPlayer();
+    
             _gameManager.Lives();
         }
     }
 
    
+
+
 
 
     #region hareket islemleri

@@ -1,4 +1,6 @@
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -26,10 +28,6 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
-        if (Manager == null)
-        {
-            Manager = this;
-        }
         bestscore = PlayerPrefs.GetInt("BestScore"); 
         score = PlayerPrefs.GetInt("score");
         SpawnPlayer();
@@ -40,6 +38,7 @@ public class GameManager : MonoBehaviour
         
     }
     
+
     public void addPoints(int point)
     {
         score += point;
@@ -49,6 +48,7 @@ public class GameManager : MonoBehaviour
         {
             PlayerPrefs.SetInt("BestScore",score);
         }
+        
     }
   #region PlayerHealth
     public void Lives()
@@ -62,6 +62,7 @@ public class GameManager : MonoBehaviour
             startPanel.SetActive(false);
             lastScoreText.text = "Last Score: "+score.ToString();
         }
+        StartCoroutine(Delay());
     }
     #endregion
     private void FixedUpdate()
@@ -79,7 +80,9 @@ public class GameManager : MonoBehaviour
         restartPanel.SetActive(false);
         isRestart = true; 
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        
         score = 0;
+       
    
     }
     #endregion
@@ -92,26 +95,36 @@ public class GameManager : MonoBehaviour
    public void ReSpawnPlayer()
     {
         Instantiate(player, spawnPoint.position, quaternion.identity);
+        
     }
    #endregion
+   IEnumerator Delay()
+   {
+       yield return new WaitForSeconds(1f);
+       ReSpawnPlayer();
+   }
+  
 
-    #region cikis islemi
+   #region cikis islemi
     public void quitGame()
     {
         Application.Quit();
         Debug.Log("çıktım bb");
+        PlayerPrefs.SetInt("lastPlayedSceneIndex", SceneManager.GetActiveScene().buildIndex);
+        PlayerPrefs.SetInt("bbestscore", bestscore);
+        PlayerPrefs.Save();
     }
     #endregion
+
     
+
 
     #region levelgecme
 
-    public   void NextLevel()
+    public void NextLevel()
     {
         isStart = true;
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
-        
-       
     }
 
     #endregion
@@ -143,7 +156,7 @@ public class GameManager : MonoBehaviour
 
     #endregion
 
-   
+    
    
     
 
