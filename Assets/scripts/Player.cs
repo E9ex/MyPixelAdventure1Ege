@@ -21,21 +21,20 @@ public class Player : MonoBehaviour
     [SerializeField]  GameObject BulletPrefab;
     [SerializeField]  Transform BulletSpawn;
     [SerializeField]  Transform BulletTile;
+   
 
     
     
     private enum MovementState {idle, run,jump,fall}
 // Start is called before the first frame update
-
-
     void Start()
     { 
         _gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
-
-        _gameManager.scoreText.text = _gameManager.score.ToString();
+         _gameManager.bestScoreText.text = _gameManager.bestscore.ToString();
           if (GameManager.isRestart)
           {
               _gameManager.startPanel.SetActive(false);
+              _gameManager.bestScoreText.gameObject.SetActive(true);
           }
     }
 
@@ -43,14 +42,14 @@ public class Player : MonoBehaviour
     private void Update()
     {
         if (!GameManager.isStart)
-           return;
+            return;
         PlayerShoot();
     }
 
     private void FixedUpdate()
     {
-        if (!GameManager.isStart)
-           return;
+        if (!GameManager.isStart )
+            return;
         float h = Input.GetAxis("Horizontal");
         Move(h);
         PlayerTurn(h);
@@ -64,28 +63,27 @@ public class Player : MonoBehaviour
         {
             applecrunchsound.Play();
             Destroy(col.gameObject,0.2f);
-            _gameManager.score += 5;
-            _gameManager.scoreText.text = _gameManager.score.ToString();
+            _gameManager.addPoints(5);
+            
         }
         else if (col.tag == "AppleExtra")
         {
             applecrunchextrasound.Play();
             Destroy(col.gameObject,0.2f);
-            _gameManager.score += 15;
-            _gameManager.scoreText.text = _gameManager.score.ToString();
+            _gameManager.addPoints(15);
+            
         }
         else if (col.tag=="Enemy")
         {
             enemydeathsound.Play();
             _enemyController = col.GetComponentInParent<EnemyController>();
-            _enemyController.killenemy();
-            _gameManager.score +=20;
-          _gameManager.scoreText.text = _gameManager.score.ToString();
+            _enemyController.killenemy();//20
+           _gameManager.addPoints(20);
           
         }
         else if (col.CompareTag("End"))
         {
-            GameManager.skipLevel();
+            _gameManager.NextLevel();
             _gameManager.scoreText.text = _gameManager.score.ToString();
             
         }
@@ -97,7 +95,6 @@ public class Player : MonoBehaviour
             death(collision.gameObject);
             _gameManager.ReSpawnPlayer();
             _gameManager.Lives();
-            
         }
     }
 

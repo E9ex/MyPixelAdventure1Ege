@@ -6,12 +6,6 @@ using UnityEngine.UI;
 
 public class EnemyBody : MonoBehaviour
 {
-    private GameManager _manager;
-
-    private void Awake()
-    {
-      
-    }
 
     public int health = 100;
     public void Takedamage(int damage)
@@ -23,6 +17,7 @@ public class EnemyBody : MonoBehaviour
             GameManager manager = FindObjectOfType<GameManager>();
             manager.score += 8;
             manager.scoreText.text = manager.score.ToString();
+            
         }
     } 
     public void Die()

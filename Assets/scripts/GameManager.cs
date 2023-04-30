@@ -1,8 +1,8 @@
 using System;
-using Microsoft.Unity.VisualStudio.Editor;
 using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.SocialPlatforms.Impl;
 using UnityEngine.UI;
 using Image = UnityEngine.UI.Image;
 
@@ -16,42 +16,74 @@ public class GameManager : MonoBehaviour
     [SerializeField] public Text scoreText,lastScoreText,bestScoreText;
     public GameObject restartPanel, startPanel;
     public static bool isRestart = false;
-    public  int score = 0;
+    public   int score = 0;
     public int bestscore = 0;
     public static bool isStart = false;
     [SerializeField]  GameObject player;
     [SerializeField]  Transform spawnPoint;
     
     
-    #region yeniden oyna
+    
 
     private void Awake()
     {
+        bestscore = PlayerPrefs.GetInt("BestScore"); 
+        score = PlayerPrefs.GetInt("score"); 
         SpawnPlayer();
-        isStart = true;
     }
-
-    #region PlayerHealth
+    
+    public void addPoints(int point)
+    {
+        score += point;
+        scoreText.text = score.ToString();
+        PlayerPrefs.SetInt("score",score);
+        if (bestscore<score)
+        {
+            PlayerPrefs.SetInt("BestScore",score);
+        }
+      
+    }
+  #region PlayerHealth
     public void Lives()
     {
         playerLife--;
         Destroy(PlayerLives[playerLife]);
-        
-        if (playerLife < 1)
+        if (playerLife < 1 )
         {
+            isStart = false;
             restartPanel.SetActive(true);
+            startPanel.SetActive(false);
             lastScoreText.text = "Last Score: "+score.ToString();
+            bestScoreText.gameObject.SetActive(true);//true
         }
+       
+        
     }
     #endregion
 
+    private void Update()
+    {
+       bestscore = PlayerPrefs.GetInt("BestScore");
+       bestScoreText.text = "Best Score: " + bestscore;
+       scoreText.text = score.ToString();
+    }
+
+    #region yenidenBaslatma
+    
     public void restartGame()
     {
-        isRestart = true;
+        isStart = true;
+        startPanel.SetActive(false);
+        restartPanel.SetActive(false);
+        isRestart = true; 
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        score = 0;
+        
+        
     }
     #endregion
 
+    #region SpawnveReSpawnIslemleri
     void SpawnPlayer()
     {
         Instantiate(player, spawnPoint.position, quaternion.identity);
@@ -60,6 +92,7 @@ public class GameManager : MonoBehaviour
     {
         Instantiate(player, spawnPoint.position, quaternion.identity);
     }
+   #endregion
 
     #region cikis islemi
     public void quitGame()
@@ -72,10 +105,10 @@ public class GameManager : MonoBehaviour
 
     #region levelgecme
 
-    public  static void skipLevel()
+    public   void NextLevel()
     {
+        isStart = true;
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
-        
     }
 
     #endregion
@@ -94,13 +127,21 @@ public class GameManager : MonoBehaviour
         unmute.SetActive(false);
         Mute.SetActive(true);
     } 
+    #endregion
+
+    #region StartIslemleri
+
     public void PlayGame()
     {
-             isStart = true;
+        isStart = true;
         startPanel.SetActive(false);
+        score = 0;
     }
 
-
     #endregion
+    
+
+
+   
         
 }
