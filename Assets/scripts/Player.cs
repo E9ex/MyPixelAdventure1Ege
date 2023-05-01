@@ -10,7 +10,7 @@ using UnityEngine.UI;
 public class Player : MonoBehaviour
 {
     private GameManager _gameManager;
-    
+   
     private EnemyController _enemyController;
     [SerializeField] Rigidbody2D rb;
     [SerializeField] float speed = 7.5f;
@@ -86,6 +86,17 @@ public class Player : MonoBehaviour
             _gameManager.NextLevel();
             _gameManager.scoreText.text = _gameManager.score.ToString();
             
+        }
+        else if (col.CompareTag("Finish"))
+        {
+            _gameManager.backtostart();
+            _gameManager.scoreText.text = _gameManager.score.ToString();
+            if (GameManager.isStart)
+            {
+                GameManager.isStart = false;
+                _gameManager.startPanel.SetActive(true);
+            }
+
         }
     }
     public void OnCollisionEnter2D(Collision2D collision)

@@ -19,7 +19,9 @@ public class SaveSystem : MonoBehaviour
     public void LoadScene()
     {
         SceneManager.LoadScene(lastSceneIndex);
+        GameManager.isStart =true;
+       /* SceneManager.LoadScene(lastSceneIndex);
         GameManager.isRestart = true;
-        GameManager.isStart = true;
+        GameManager.isStart = true;*/
     }
 }

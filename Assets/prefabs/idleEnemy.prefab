@@ -293,7 +293,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 100
-  scoreText: {fileID: 0}
 --- !u!1 &6452249084033642955
 GameObject:
   m_ObjectHideFlags: 0

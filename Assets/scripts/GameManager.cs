@@ -11,6 +11,7 @@ using Image = UnityEngine.UI.Image;
 public class GameManager : MonoBehaviour
 {
     public static GameManager Manager;
+    [SerializeField]  Button Continue;
     [SerializeField] GameObject Mute, unmute;
     [SerializeField] private Image[] PlayerLives;
     [SerializeField] private int playerLife = 3;
@@ -97,12 +98,13 @@ public class GameManager : MonoBehaviour
         Instantiate(player, spawnPoint.position, quaternion.identity);
         
     }
-   #endregion
+   
    IEnumerator Delay()
    {
        yield return new WaitForSeconds(1f);
        ReSpawnPlayer();
    }
+   #endregion
   
 
    #region cikis islemi
@@ -116,7 +118,10 @@ public class GameManager : MonoBehaviour
     }
     #endregion
 
-    
+    public void backtostart()
+    {
+        SceneManager.LoadScene("level1");
+    }
 
 
     #region levelgecme
