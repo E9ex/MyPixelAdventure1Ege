@@ -37,8 +37,11 @@ public class GameManager : MonoBehaviour
         else
             scoreText.text = score.ToString();
         
+        playerLife = PlayerPrefs.GetInt("PlayerLife", 3);
+
+        for (int i = playerLife; i < 3; i++)
+            Destroy(PlayerLives[i]);
     }
-    
 
     public void addPoints(int point)
     {
@@ -46,15 +49,13 @@ public class GameManager : MonoBehaviour
         scoreText.text = score.ToString();
         PlayerPrefs.SetInt("score",score);
         if (bestscore<score)
-        {
             PlayerPrefs.SetInt("BestScore",score);
-        }
-        
     }
   #region PlayerHealth
-    public void Lives()
+    public void Lives()//reducelives
     {
         playerLife--;
+        PlayerPrefs.SetInt("PlayerLife", playerLife);
         Destroy(PlayerLives[playerLife]);
         if (playerLife < 1 )
         {

@@ -50,6 +50,7 @@ public class Player : MonoBehaviour
     {
         if (!GameManager.isStart )
             return;
+       // PlayerShoot();
         float h = Input.GetAxis("Horizontal");
         Move(h);
         PlayerTurn(h);
@@ -86,6 +87,7 @@ public class Player : MonoBehaviour
             _gameManager.NextLevel();
             _gameManager.scoreText.text = _gameManager.score.ToString();
             
+            
         }
         else if (col.CompareTag("Finish"))
         {
@@ -104,7 +106,6 @@ public class Player : MonoBehaviour
         if (collision.gameObject.tag=="Death")
         {
             death(collision.gameObject);
-    
             _gameManager.Lives();
         }
     }
