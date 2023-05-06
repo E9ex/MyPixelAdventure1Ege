@@ -15,9 +15,7 @@ public class EnemyBody : MonoBehaviour
         {
             Die();
             GameManager manager = FindObjectOfType<GameManager>();
-            manager.score += 8;
-            manager.scoreText.text = manager.score.ToString();
-            
+            manager.Score += 8;
         }
     } 
     public void Die()

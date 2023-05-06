@@ -12,16 +12,13 @@ public class SaveSystem : MonoBehaviour
     private void Awake()
     {
         Manager = GetComponent<GameManager>();
-        lastSceneIndex = PlayerPrefs.GetInt("lastPlayedSceneIndex",SceneManager.GetActiveScene().buildIndex+1);// defaulu boş bırak bi kere 
-        PlayerPrefs.GetInt("bbestscore");
+        lastSceneIndex = PlayerPrefs.GetInt("lastPlayedSceneIndex",0);
+        Debug.Log("LAST SCENE INDEX LOAD " + lastSceneIndex);
     }
 
     public void LoadScene()
     {
         SceneManager.LoadScene(lastSceneIndex);
         GameManager.isStart =true;
-       /* SceneManager.LoadScene(lastSceneIndex);
-        GameManager.isRestart = true;
-        GameManager.isStart = true;*/
     }
 }

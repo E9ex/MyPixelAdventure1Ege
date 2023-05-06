@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Unity.Mathematics;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 
@@ -30,12 +31,11 @@ public class Player : MonoBehaviour
     void Start()
     { 
         _gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
-         _gameManager.bestScoreText.text = _gameManager.bestscore.ToString();
-          if (GameManager.isRestart)
-          {
-              _gameManager.startPanel.SetActive(false);
-              _gameManager.bestScoreText.gameObject.SetActive(true);
-          }
+        if (GameManager.isRestart)
+        {
+          _gameManager.startPanel.SetActive(false);
+          _gameManager.bestScoreText.gameObject.SetActive(true);
+        }
     }
 
     
@@ -84,15 +84,14 @@ public class Player : MonoBehaviour
         }
         else if (col.CompareTag("End"))
         {
+            PlayerPrefs.SetInt("lastPlayedSceneIndex", SceneManager.GetActiveScene().buildIndex);
             _gameManager.NextLevel();
-            _gameManager.scoreText.text = _gameManager.score.ToString();
-            
-            
+            // _gameManager.scoreText.text = _gameManager.score.ToString();
         }
         else if (col.CompareTag("Finish"))
         {
-            _gameManager.backtostart();
-            _gameManager.scoreText.text = _gameManager.score.ToString();
+            _gameManager.BackToStart();
+            // _gameManager.scoreText.text = _gameManager.score.ToString();
             if (GameManager.isStart)
             {
                 GameManager.isStart = false;
@@ -105,8 +104,8 @@ public class Player : MonoBehaviour
     {
         if (collision.gameObject.tag=="Death")
         {
-            death(collision.gameObject);
-            _gameManager.Lives();
+            KillPlayer(collision.gameObject);
+            _gameManager.ReduceLives();
         }
     }
 
@@ -158,7 +157,6 @@ public class Player : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.P))
         { 
             Instantiate(BulletPrefab, BulletSpawn.position, Quaternion.identity, BulletTile);
-            
         }
     }
     
@@ -168,7 +166,7 @@ public class Player : MonoBehaviour
     
     #region olme işlemi
 
-    public void death(GameObject p)
+    public void KillPlayer(GameObject p)
     {
             playerdeathsound.Play();
             Destroy(gameObject,0.5f);
@@ -177,10 +175,5 @@ public class Player : MonoBehaviour
     }
 
     #endregion
-    
 
-
-
-
-
-}//class
+}

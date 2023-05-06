@@ -1,103 +1,137 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.SocialPlatforms.Impl;
 using UnityEngine.UI;
 using Image = UnityEngine.UI.Image;
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager Manager;
-    [SerializeField]  Button Continue;
+    [SerializeField] Button Continue;
     [SerializeField] GameObject Mute, unmute;
     [SerializeField] private Image[] PlayerLives;
     [SerializeField] private int playerLife = 3;
     [SerializeField] public Text scoreText,lastScoreText,bestScoreText;
     public GameObject restartPanel, startPanel;
     public static bool isRestart = false;
-    public   int score = 0;
-    public int bestscore = 0;
+    [SerializeField] int score = 0;
+    public int Score
+    {
+        get => score;
+        set
+        {
+            score = value;
+            PlayerPrefs.SetInt("score", score);
+            scoreText.text = score.ToString();
+        }
+    }
+    
+    [SerializeField] int bestscore = 0;
+
+    public int BestScore
+    {
+        get => bestscore;
+        set
+        {
+            bestscore = value;
+            PlayerPrefs.SetInt("BestScore", bestscore);
+            bestScoreText.text = "Best Score: " + bestscore;
+        }
+    }
     public static bool isStart = false;
-    [SerializeField]  GameObject player;
-    [SerializeField]  Transform spawnPoint;
-    
-    
-    
+    [SerializeField] GameObject player;
+    [SerializeField] Transform spawnPoint;
 
     private void Awake()
     {
-        bestscore = PlayerPrefs.GetInt("BestScore"); 
-        score = PlayerPrefs.GetInt("score");
-        SpawnPlayer();
-        if (!isStart)
-            score = 0;
-        else
-            scoreText.text = score.ToString();
-        
         playerLife = PlayerPrefs.GetInt("PlayerLife", 3);
+        BestScore = PlayerPrefs.GetInt("BestScore", 0);
+        Score = PlayerPrefs.GetInt("score");
 
-        for (int i = playerLife; i < 3; i++)
-            Destroy(PlayerLives[i]);
+        if(Continue)
+            if (BestScore > 0 || Score > 0 || playerLife != 3)
+                Continue.interactable = true;
+        
+        if (playerLife == 0)
+        {
+            PlayerPrefs.SetInt("PlayerLife", 3);
+            Score = 0;
+            playerLife = 3;
+        }
+        
+        for (int i = 0; i < 3; i++)
+        {
+            if(i<playerLife)
+                PlayerLives[i].gameObject.SetActive(true);
+            else
+                PlayerLives[i].gameObject.SetActive(false);
+        }
+    }
+
+    private void Start()
+    {
+        SpawnPlayer();
+    }
+
+    private void ResetValues()
+    {
+        PlayerPrefs.SetInt("PlayerLife", 3);
     }
 
     public void addPoints(int point)
     {
-        score += point;
-        scoreText.text = score.ToString();
-        PlayerPrefs.SetInt("score",score);
-        if (bestscore<score)
-            PlayerPrefs.SetInt("BestScore",score);
+        Score += point;
+        if (bestscore < score)
+            BestScore = score;
     }
-  #region PlayerHealth
-    public void Lives()//reducelives
+    #region PlayerHealth
+    public void ReduceLives()
     {
         playerLife--;
         PlayerPrefs.SetInt("PlayerLife", playerLife);
-        Destroy(PlayerLives[playerLife]);
+        PlayerLives[playerLife].gameObject.SetActive(false);
         if (playerLife < 1 )
         {
             isStart = false;
             restartPanel.SetActive(true);
             startPanel.SetActive(false);
-            lastScoreText.text = "Last Score: "+score.ToString();
+            lastScoreText.text = "Last Score: " + score;
+            PlayerPrefs.SetInt("lastPlayedSceneIndex", SceneManager.GetActiveScene().buildIndex);
+            return;
         }
         StartCoroutine(Delay());
     }
     #endregion
-    private void FixedUpdate()
-    { 
-       bestScoreText.text = "Best Score: " + bestscore.ToString();
-     
-    }
 
     #region yenidenBaslatma
     
-    public void restartGame()
+    public void RestartGame()
     {
         isStart = true;
         startPanel.SetActive(false);
         restartPanel.SetActive(false);
-        isRestart = true; 
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        isRestart = true;
+        ResetValues();
+        Score = 0;
+        PlayerPrefs.SetInt("lastPlayedSceneIndex",0);
+        SceneManager.LoadScene("level1");
         
-        score = 0;
-       
-   
+         
     }
     #endregion
 
     #region SpawnveReSpawnIslemleri
     void SpawnPlayer()
     {
+        Debug.Log("Player Spawn");
         Instantiate(player, spawnPoint.position, quaternion.identity);
     }
    public void ReSpawnPlayer()
     {
+        Debug.Log("Player Respawn");
         Instantiate(player, spawnPoint.position, quaternion.identity);
-        
     }
    
    IEnumerator Delay()
@@ -106,24 +140,22 @@ public class GameManager : MonoBehaviour
        ReSpawnPlayer();
    }
    #endregion
-  
 
    #region cikis islemi
-    public void quitGame()
+    public void QuitGame()
     {
         Application.Quit();
         Debug.Log("çıktım bb");
-        PlayerPrefs.SetInt("lastPlayedSceneIndex", SceneManager.GetActiveScene().buildIndex);
-        PlayerPrefs.SetInt("bbestscore", bestscore);
+        
+        ResetValues();
         PlayerPrefs.Save();
     }
     #endregion
 
-    public void backtostart()
+    public void BackToStart()
     {
-        SceneManager.LoadScene("level1");
+        SceneManager.LoadScene(0);
     }
-
 
     #region levelgecme
 
@@ -134,7 +166,6 @@ public class GameManager : MonoBehaviour
     }
 
     #endregion
-  
 
     #region  mute işlemleri
 
@@ -157,12 +188,19 @@ public class GameManager : MonoBehaviour
     {
         isStart = true;
         startPanel.SetActive(false);
-        score = 0;
+        Score = 0;
     }
 
     #endregion
 
-    
+    #region KapatmaIslemleri
+
+    private void OnDisable()
+    {
+        PlayerPrefs.SetInt("lastPlayedSceneIndex", SceneManager.GetActiveScene().buildIndex);
+    }
+
+    #endregion
    
     
 
