@@ -1,40 +1,22 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SocialPlatforms.Impl;
-using UnityEngine.UI;
-
 public class Bullet : MonoBehaviour
 {
-    public int damage = 40;
-    
-    
+    public int damage = 40;// merminin verdiği hasar tek seferde.
     private void Update()
     {
-        transform.Translate(Vector3.right*10f*Time.deltaTime);
+        transform.Translate(Vector3.right*10f*Time.deltaTime);// mermi hareketi.
     }
-
     private void OnTriggerEnter2D(Collider2D col)
     {
-        
-        EnemyBody enemyBody= col.GetComponent<EnemyBody>();
-       
-       if (enemyBody!=null )
+        EnemyBody enemyBody= col.GetComponent<EnemyBody>(); 
+        if (enemyBody!=null )// enemyBody değişkeni null değilse, yani enemy ile çarpışmışsa
        {
            Destroy(gameObject);//bullet destroy.
-           enemyBody.Takedamage(damage);
-          
+           enemyBody.Takedamage(damage); // çarptığı düşmana hasar verilir
        }
-       else if (col.CompareTag("Bulletdest"))
+       else if (col.CompareTag("Bulletdest")) // eğer mermi çarpıştığı obje bir "Bulletdest" tag'ine sahipse
        {
-           Destroy(gameObject);
+           Destroy(gameObject);//mermi yok edilir mermi sonsuza kadar gitmesin diye.
        }
-
-       
     }
-    
-
-   
-    
 }

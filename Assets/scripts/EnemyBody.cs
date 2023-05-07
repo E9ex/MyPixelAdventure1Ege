@@ -1,28 +1,19 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
-
 public class EnemyBody : MonoBehaviour
 {
-
-    public int health = 100;
+    public int health = 100; 
     public void Takedamage(int damage)
     {
         health -=damage ;
         if (health <= 0)
         {
-            Die();
+            Die();// body'e gelen mermiler ile 0'a ulaşırsa enemy'in canı öldür.
             GameManager manager = FindObjectOfType<GameManager>();
-            manager.Score += 8;
+            manager.Score += 8;// ve Score 8 Puan ekle.
         }
     } 
     public void Die()
     {
         Destroy(transform.parent.gameObject);
     }
-   
-    
-    
 }
